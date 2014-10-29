@@ -8,7 +8,6 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class GroupPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -26,7 +26,7 @@ public class GroupPanel extends JPanel implements ActionListener {
 	private JButton cancel = new JButton("Cancel");
 	private JButton ok = new JButton("OK");
 	private JButton select = new JButton("Select Files");
-	private JFileChooser fileChooser = new JFileChooser("Select Files To Rename");
+	private JFileChooser fileChooser = new ThumbnailFileChooser("Select Files To Rename");
 	private JTextField groupName = new JTextField();
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	private String dateRegex = "((19[0-9]{2})|(20[0-9]{2}))[0-1][0-9][0-3][0-9]";
@@ -38,7 +38,9 @@ public class GroupPanel extends JPanel implements ActionListener {
 		fileChooser.setAcceptAllFileFilterUsed(false);
 		fileChooser.setCurrentDirectory(new java.io.File("."));
 		fileChooser.setMultiSelectionEnabled(true);
-
+		fileChooser.setPreferredSize(new Dimension(1200,600));
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Media File Types", "jpeg", "png", "mpg", "mpeg", "mp4", "mov", "jpg", "gif");
+		fileChooser.setFileFilter(filter);
 		label.setBounds(15,15,100,25);
 		groupName.setBounds(100, 15, 200, 25);
 		cancel.setBounds(250, 75 ,75,25);
